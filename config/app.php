@@ -147,7 +147,9 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+        // JWT Service Provider
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */
@@ -156,8 +158,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        // JWT Service Provider
-        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
 
     ],
 
