@@ -10,7 +10,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ URL::to('/dashboard') }}"><i class="fa fa-wrench"></i> Dashboard</a></li>
-            <li><a href="{{ URL::to('/enforcer') }}"></i> Enforcer</a></li>
+            <li><a href="{{ URL::to('/enforcers') }}"></i> Enforcer</a></li>
             <li class="active">{{$enforcer->strEnforcerFirstname}} {{$enforcer->strEnforcerLastname}}</li>
         </ol>
     </section>
@@ -26,7 +26,7 @@
                     </div>
                     <!-- /.widget-user-image -->
                     <h3 class="widget-user-username">{{$enforcer->strEnforcerFirstname}} {{$enforcer->strEnforcerLastname}}</h3>
-                    <h5 class="widget-user-desc">{{$enforcer->strEnforcerIdNumber}}</h5>
+                    <h5 class="widget-user-desc">{{$enforcer->strEnforcerEmail}}</h5>
                 </div>
                 <div class="box-footer no-padding">
                     <ul class="nav nav-stacked">

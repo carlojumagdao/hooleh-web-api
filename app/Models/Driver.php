@@ -11,7 +11,7 @@ class Driver extends Model
 	protected $primaryKey = 'intDriverID';  
 
 	public function LicenseType(){
-		return $this->hasOne('App\Models\LicenseType', 'intLicenseId', 'intLicenseType');
+		return $this->hasOne('App\Models\LicenseType', 'intLicenseId', 'intLicenseType', 'strLicenseType');
 	}
 
 	public function Ticket(){

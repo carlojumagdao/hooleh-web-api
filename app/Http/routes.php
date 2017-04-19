@@ -20,9 +20,22 @@ Route::get('/dashboard', function () {
 });
 
 
+//----------Driver----------//
+Route::get('/drivers', array(
+	'uses' => 'web\driverController@index',
+	'as' => 'driver.index'
+));
+Route::get('/drivers/show/{id}', array(
+	'uses' => 'web\driverController@show',
+	'as' => 'driver.show'
+));
+//----------Driver----------//
+
+
+
 
 //----------Enforcer----------//
-Route::get('/enforcer', array(
+Route::get('/enforcers', array(
 	'uses' => 'web\enforcerController@index',
 	'as' => 'enforcer.index'
 ));
@@ -62,7 +75,7 @@ Route::get('/enforcer/data', array(
 
 
 //----------Violation--------//
-Route::get('/violation', array(
+Route::get('/violations', array(
 	'uses' => 'web\violationController@index',
 	'as' => 'violation.index'
 ));

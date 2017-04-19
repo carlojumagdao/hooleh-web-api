@@ -18,7 +18,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="row">
-            <a href="{{ URL::to('/enforcer') }}">
+            <a href="{{ URL::to('/enforcers') }}">
                 <div class="col-sm-6 col-md-3 col-lg-2">
                     <div class="custom-box">
                         <div class="box-body box-profile">
@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </a>
-            <a href="/">
+            <a href="{{ URL::to('/drivers') }}">
             <div class="col-sm-6 col-md-3 col-lg-2">
                 <div class="custom-box">
                     <div class="box-body box-profile">
@@ -40,7 +40,7 @@
                 </div>
             </div>
             </a>
-            <a href="/violation">
+            <a href="{{ URL::to('/violations') }}">
             <div class="col-sm-6 col-md-3 col-lg-2">
                 <div class="custom-box">
                     <div class="box-body box-profile">
