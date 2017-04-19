@@ -19,15 +19,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
-Route::get('/violation', function () {
-    return view('violation');
-});
-
-Route::get('/violation', array(
-	'uses' => 'web\violationController@index',
-	'as' => 'violation.index'
-));
-
 
 
 //----------Enforcer----------//
@@ -115,11 +106,6 @@ Route::post('/violation/filter', array(
 //----------Violation--------//
 
 
-//----------API----------//
-
-Route::get('/driver/{id}', function () {
-    return view('enforcer');
-});
 
 //----------API----------//
 Route::post('api/authenticate', 'Auth\AuthController@authenticate');
