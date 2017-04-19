@@ -69,7 +69,7 @@ class violationController extends Controller
         $violations = DB::table('tblViolation')
             ->join('tblViolationFee', 'tblViolation.intViolationID', '=', 'tblViolationFee.intViolationID')
             ->where([
-                ['tblViolation.blViolationDelete', 1],
+                ['tblViolation.blViolationDelete', $request->selFilterValue],
                 ['tblViolationFee.datStartDate', '<=', $now],
                 ['tblViolationFee.datEndDate', '>=', $now]
                 
