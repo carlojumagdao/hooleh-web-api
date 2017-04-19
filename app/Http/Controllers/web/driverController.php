@@ -27,16 +27,15 @@ class driverController extends Controller
         $driver = Driver::find($id);
         $LicenseType = $driver->LicenseType;
         $driverViolations = DB::table('tblViolationTransactionHeader')
+        		->select(DB::raw('SUM(tblViolationFee.dblPrice) as totalFine'),'tblViolationTransactionHeader.*','tblViolationFee.*')
         		->join('tblViolationTransactionDetail', 'tblViolationTransactionHeader.intViolationTransactionHeaderID', '=', 'tblViolationTransactionDetail.intViolationTransactionHeaderID')
         		->join('tblViolation', 'tblViolationTransactionDetail.intViolationID', '=', 'tblViolation.intViolationID')
         		->join('tblViolationFee', 'tblViolation.intViolationID', '=', 'tblViolationFee.intViolationID')
         		->where('tblViolationTransactionHeader.intDriverID', $id)
-        		->whereRaw(
-        			'tblViolationFee.datStartDate <= tblViolationTransactionHeader.TimestampCreated' 
-        			AND
-	                'tblViolationFee.datEndDate >= tblViolationTransactionHeader.TimestampCreated'
+        		->whereRaw('tblViolationFee.datEndDate >= tblViolationTransactionHeader.TimestampCreated'
 	            )
-	            ->select(DB::raw('SUM(tblViolationFee.dblPrice) as totalFine'),'tblViolationTransactionHeader.*','tblViolationFee.*')
+	            ->whereRaw('tblViolationFee.datStartDate <= tblViolationTransactionHeader.TimestampCreated' 
+	            )
 	            ->groupBy('tblViolationTransactionHeader.intViolationTransactionHeaderID')
             	->orderBy('tblViolationTransactionHeader.TimestampCreated', 'desc')
             	->get();
