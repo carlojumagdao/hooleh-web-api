@@ -9,5 +9,6 @@ storage/*.key
 .env.*.php
 .env.php
 .env
+config/database.php
 Homestead.yaml
 Homestead.json
