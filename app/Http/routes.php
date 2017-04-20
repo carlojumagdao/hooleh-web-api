@@ -123,22 +123,26 @@ Route::post('/violation/filter', array(
 //----------API----------//
 Route::post('api/authenticate', 'Auth\AuthController@authenticate');
 
-Route::group(['middleware' => ['jwt.auth', 'cors'], 'prefix' => 'api/v1', 'namespace' => 'api\v1'], function () {
-	// Route::resource('enforcers','EnforcerController');
+Route::group(['middleware' => ['jwt.auth'], 'prefix' => 'api/v1', 'namespace' => 'api\v1'], function () {
+
 	Route::resource('drivers', 'DriverController');	
 	Route::resource('violations', 'ViolationController');
 	Route::resource('driverviolations', 'DriverViolationController');
+	Route::resource('enforcers','EnforcerController');
 	
 	Route::post('enforcertickets', 'EnforcerTicketController@store');
-	Route::get('enforcertickets', 'api\v1\EnforcerTicketController@enforcerTicket');
+	Route::get('enforcertickets', 'EnforcerTicketController@enforcerTicket');
 	Route::get('enforcers/{enforcer_id}/tickets', 'EnforcerTicketController@index');
 
 	Route::get('enforcercurrentlogin', 'EnforcerController@enforcerCurrentLogin');
 	Route::get('listviolationtoday', 'DriverViolationController@enforcerListViolationToday');
 	Route::get('violationdetails/{id}', 'DriverViolationController@ticketDetails');
+
 });
 
-Route::resource('api/v1/enforcers','api\v1\EnforcerController');
+
+
+
 
 // Route::resource('api/v1/driverviolations', 'api\v1\DriverViolationController');
 //----------API----------//
