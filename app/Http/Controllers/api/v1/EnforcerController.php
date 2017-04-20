@@ -57,47 +57,39 @@ class EnforcerController extends Controller
     public function store(Request $request)
     {
 
-        $user = JWTAuth::parseToken()->toUser();
-        if ($user['original']['tinyintIdentifier'] == 1){
-            $enforcer = new Enforcer;
-            try {
-                DB::beginTransaction();
-                $userID = DB::table('users')->insertGetId([
-                    'username' => $request->username,
-                    'password' => Hash::make($request->password),
-                    'tinyintIdentifier' => 0
-                ]);
-
-                $enforcer->strEnforcerIdNumber = $request->strEnforcerIdNumber;
-                $enforcer->strEnforcerFirstname = $request->strEnforcerFirstname;
-                $enforcer->strEnforcerMiddlename = $request->strEnforcerMiddlename;
-                $enforcer->strEnforcerLastname = $request->strEnforcerLastname;
-                $enforcer->strEnforcerPicture = $request->strEnforcerPicture;
-                $enforcer->strEnforcerPosition = $request->strEnforcerPosition;
-                $enforcer->intUserID = $userID;
-                $enforcer->save();
-                DB::commit();
-                return response()->json([
-                        'message' => 'Enforcer Created.',
-                        'status code' => 201, 
-                        'data' => $enforcer
-                    ]
-                );
-            } catch (\Illuminate\Database\QueryException $e) {
-                DB::rollback();
-                return response()->json([
-                        'message' => $e->getMessage(),
-                        'status code' => 400,
-                        'data' => $enforcer
-                    ]
-                );
-            }
-        } else{
-            return response()->json([
-                'message' => 'Unauthorized.',
-                'status Code' => 401
+        $enforcer = new Enforcer;
+        try {
+            DB::beginTransaction();
+            $userID = DB::table('users')->insertGetId([
+                'username' => $request->username,
+                'password' => Hash::make($request->password),
+                'tinyintIdentifier' => 0
             ]);
-        } 
+
+            $enforcer->strEnforcerIdNumber = $request->strEnforcerIdNumber;
+            $enforcer->strEnforcerFirstname = $request->strEnforcerFirstname;
+            $enforcer->strEnforcerMiddlename = $request->strEnforcerMiddlename;
+            $enforcer->strEnforcerLastname = $request->strEnforcerLastname;
+            $enforcer->strEnforcerPicture = $request->strEnforcerPicture;
+            $enforcer->strEnforcerPosition = $request->strEnforcerPosition;
+            $enforcer->intUserID = $userID;
+            $enforcer->save();
+            DB::commit();
+            return response()->json([
+                    'message' => 'Enforcer Created.',
+                    'status code' => 201, 
+                    'data' => $enforcer
+                ]
+            );
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback();
+            return response()->json([
+                    'message' => $e->getMessage(),
+                    'status code' => 400,
+                    'data' => $enforcer
+                ]
+            );
+        }
     }
 
     /**
