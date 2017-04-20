@@ -39,8 +39,33 @@ class driverController extends Controller
 	            ->groupBy('tblViolationTransactionHeader.intViolationTransactionHeaderID')
             	->orderBy('tblViolationTransactionHeader.TimestampCreated', 'desc')
             	->get();
+
+
+		
+        $driverTotalFine = DB::table('tblViolationTransactionHeader')
+        		->select(DB::raw('SUM(tblViolationFee.dblPrice) as totalFine'))
+        		->join('tblViolationTransactionDetail', 'tblViolationTransactionHeader.intViolationTransactionHeaderID', '=', 'tblViolationTransactionDetail.intViolationTransactionHeaderID')
+        		->join('tblViolation', 'tblViolationTransactionDetail.intViolationID', '=', 'tblViolation.intViolationID')
+        		->join('tblViolationFee', 'tblViolation.intViolationID', '=', 'tblViolationFee.intViolationID')
+        		->where('tblViolationTransactionHeader.intDriverID', $id)
+        		->where('tblViolationTransactionHeader.blPaymentStatus', 0)
+        		->whereRaw('tblViolationFee.datEndDate >= tblViolationTransactionHeader.TimestampCreated'
+	            )
+	            ->whereRaw('tblViolationFee.datStartDate <= tblViolationTransactionHeader.TimestampCreated' 
+	            )
+	            ->groupBy('tblViolationTransactionHeader.intDriverID')
+            	->orderBy('tblViolationTransactionHeader.TimestampCreated', 'desc')
+            	->first();
+
+        if(empty($driverTotalFine)){
+        	$driverTotalFine = array (
+			   'totalFine' => 0
+			);
+			$driverTotalFine = (object) $driverTotalFine;
+        }
+        
         if (!is_null($driver)){
-            return view('driver.show', ['driver' => $driver, 'driverViolations' => $driverViolations, 'LicenseType' => $LicenseType]);
+            return view('driver.show', ['driver' => $driver, 'driverViolations' => $driverViolations, 'LicenseType' => $LicenseType, 'driverTotalFine' => $driverTotalFine]);
         }else{
             return view('errors.404');
         }  

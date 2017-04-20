@@ -45,6 +45,11 @@
                                 {{$LicenseType->strLicenseType}}
                             </span></a>
                         </li>
+                        <li>
+                            <a href="#">Total unpaid fine <span class="pull-right">
+                                <b>Php {{number_format($driverTotalFine->totalFine,2)}}</b> 
+                            </span></a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -74,11 +79,11 @@
                                     TimestampCreated))}}</td>
                                     <td>
                                         @if($driverViolation->blPaymentStatus)
-                                            <span class="pull-right badge bg-green">
+                                            <span class="badge bg-green">
                                                 Paid
                                             </span>
                                         @else
-                                            <span class="pull-right badge bg-red">
+                                            <span class="badge bg-red">
                                                 Unpaid
                                             </span>
                                         @endif
