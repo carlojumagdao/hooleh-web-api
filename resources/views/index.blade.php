@@ -83,8 +83,8 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="{{ URL::to('/violation') }}"><i class="fa fa-circle-o"></i> Violations</a></li>
-                                <li><a href="{{ URL::to('/enforcer') }}"><i class="fa fa-circle-o"></i> Enforcer</a></li>
+                                <li><a href="{{ URL::to('/violations') }}"><i class="fa fa-circle-o"></i> Violations</a></li>
+                                <li><a href="{{ URL::to('/enforcers') }}"><i class="fa fa-circle-o"></i> Enforcer</a></li>
                             </ul>
                         </li>
                         
