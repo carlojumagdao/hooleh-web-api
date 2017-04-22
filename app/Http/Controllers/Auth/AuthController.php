@@ -7,16 +7,27 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class AuthController extends Controller
 {
 
+    use AuthenticatesUsers, ThrottlesLogins;
+    
+    protected $username = 'username';
+
+    protected $redirectAfterLogout = '/admin';
+
+    protected $redirectTo = '/dashboard';
+
+    
     /**
      * Where to redirect users after login / registration.
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    
 
     /**
      * Create a new authentication controller instance.
@@ -25,7 +36,14 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'logout']);
+        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+    }
+
+    public function getLogout()
+    {
+        Auth::logout();
+
+        return redirect()->back();
     }
 
     public function authenticate(Request $request){
@@ -57,4 +75,5 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
 }
