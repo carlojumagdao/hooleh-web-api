@@ -29,11 +29,13 @@
         <link rel="stylesheet" href="{{ URL::asset('assets/plugins/iCheck/square/blue.css') }}">
 
         <meta name="csrf_token" content="{{ csrf_token() }}" />
+
+        @yield('style')
         
 
     </head>
 
-    <body class="hold-transition login-page">
+    <body class="hold-transition"  background="assets/image/background/trafficlights.jpg">
 
         @yield('content')
 

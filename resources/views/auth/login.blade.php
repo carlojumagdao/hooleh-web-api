@@ -3,17 +3,17 @@
 @section('title', 'Administrator Login')
 
 @section('content')
-<div class="login-box">
-    <div class="login-logo">
-        <a href=""><img src="assets/image/icons/Hooleh.png" class="center-align" alt="Hooleh"></a>
+<div class="col-xs-12 col-md-offset-4 col-md-4">
+    <center>
+    <div>
+        <a href=""><img src="assets/image/icons/Hooleh.png" alt="Hooleh"></a>
+        <h3 style="color:white"><b>Administrator</b> Login</h3>
     </div>
     <!-- /.login-logo -->
-    <div class="login-box-body">
-        <h3 class="login-box-msg"><b>Administrator</b> Login</h3>
-
+    <div>
         <form role="form" method="POST" action="{{ url('/auth/login') }}">
             {{ csrf_field() }}
-            <div class="login-box-msg">
+            <div>
                 @if ($errors->any())
                     <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -31,35 +31,41 @@
                     </div>
                 @endif
             </div>
-            <div class="form-group has-feedback">
-                <input id = "userame" type="email" class="form-control" name = "username" placeholder="Email">
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span
-            </div>       
-            <div class="form-group has-feedback">
-                <input id ="password" type="password" class="form-control" name = "password" placeholder="Password">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                
+            <div class="row">
+                <div class="col-xs-12 col-md-offset-1 col-md-10">
+                    <div class="form-group has-feedback">
+                        <input id = "userame" type="email" class="form-control" name = "username" placeholder="EMAIL">
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                </div>      
             </div>
             <div class="row">
-                <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox" name="remember"> Remember Me
-                        </label>
+                <div class="col-xs-12 col-md-offset-1 col-md-10">
+                    <div class="form-group has-feedback">
+                        <input id ="password" type="password" class="form-control" name = "password" placeholder="PASSWORD">
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        
                     </div>
                 </div>
-                <!-- /.col -->
-                <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
+            </div>
+            <div class="row">
+                <div class="checkbox icheck">
+                    <label style="color:white">
+                        <input type="checkbox" name="remember"> REMEMBER ME
+                    </label>
                 </div>
-                <!-- /.col -->
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-offset-1 col-md-10">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">LOGIN</button>
+                </div>
             </div>
         </form>
 
-        <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+        <a class="btn btn-link" style="color:white" href="{{ url('/password/reset') }}"><b>FORGOT YOUR PASSWORD?</b></a>
 
     </div>
-    <!-- /.login-box-body -->
+    </center>
 </div>
 <!-- /.login-box -->
 
