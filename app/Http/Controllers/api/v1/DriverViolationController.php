@@ -176,7 +176,7 @@ class DriverViolationController extends Controller
             ->join('tblViolationTransactionDetail','tblViolationTransactionDetail.intViolationTransactionHeaderID', '=', 'tblViolationTransactionHeader.intViolationTransactionHeaderID')
             ->join('tblViolation', 'tblViolation.intViolationID', '=', 'tblViolationTransactionDetail.intViolationID')
             ->join('tblViolationFee', 'tblViolationFee.intViolationID', '=', 'tblViolation.intViolationID')
-            ->select('tblViolation.*', 'tblViolationFee.dblPrice')
+            ->select('tblViolation.*', 'tblViolationFee.dblPrice', 'tblViolationTransactionHeader.blPaymentStatus')
             ->where('tblViolationTransactionHeader.strControlNumber', $id)
             ->where('tblViolationFee.datStartDate', '<=', $dateViolation->TimestampCreated)
             ->where('tblViolationFee.datEndDate', '>=', $dateViolation->TimestampCreated)
