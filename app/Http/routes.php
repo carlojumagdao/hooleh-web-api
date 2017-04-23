@@ -50,9 +50,11 @@ Route::group(['middleware' => 'auth'], function(){
 		'uses' => 'web\driverController@show',
 		'as' => 'driver.show'
 	));
+	Route::get('/{driverID}/tickets/show/{ticketID}', array(
+		'uses' => 'web\driverController@ticketShow',
+		'as' => 'driver.ticketShow'
+	));
 	//----------Driver----------//
-
-
 
 
 	//----------Enforcer----------//

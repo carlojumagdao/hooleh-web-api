@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
+use App\SmartCounter AS SmartCounter;
 use App\Models\Driver;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Carbon\Carbon;
@@ -49,8 +50,14 @@ class DriverViolationController extends Controller
                 ->where('strDriverLicense', $request->strDriverLicenseNumber)
                 ->first();
 
+            $violationControlNumber = DB::table('tblViolationTransactionHeader')
+                ->select('strControlNumber')
+                ->orderBy('strControlNumber', 'desc')
+                ->first();
+            $counter = new SmartCounter();
+
             $id = DB::table('tblViolationTransactionHeader')->insertGetId([
-                'strControlNumber' => $request->strControlNumber,
+                'strControlNumber' => $counter->smartcounter($violationControlNumber),
                 'intEnforcerID' => $user->Enforcer->intEnforcerID,
                 'intDriverID' => $driverID->intDriverID,
                 'strRegistrationSticker' => $request->strRegistrationSticker,
