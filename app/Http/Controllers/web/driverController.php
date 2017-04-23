@@ -41,27 +41,9 @@ class driverController extends Controller
             	->get();
 
 
-		
-        $driverTotalFine = DB::table('tblViolationTransactionHeader')
-        		->select(DB::raw('SUM(tblViolationFee.dblPrice) as totalFine'))
-        		->join('tblViolationTransactionDetail', 'tblViolationTransactionHeader.intViolationTransactionHeaderID', '=', 'tblViolationTransactionDetail.intViolationTransactionHeaderID')
-        		->join('tblViolation', 'tblViolationTransactionDetail.intViolationID', '=', 'tblViolation.intViolationID')
-        		->join('tblViolationFee', 'tblViolation.intViolationID', '=', 'tblViolationFee.intViolationID')
-        		->where('tblViolationTransactionHeader.intDriverID', $id)
-        		->where('tblViolationTransactionHeader.blPaymentStatus', 0)
-        		->whereRaw('tblViolationFee.datEndDate >= tblViolationTransactionHeader.TimestampCreated'
-	            )
-	            ->whereRaw('tblViolationFee.datStartDate <= tblViolationTransactionHeader.TimestampCreated' 
-	            )
-	            ->groupBy('tblViolationTransactionHeader.intDriverID')
-            	->orderBy('tblViolationTransactionHeader.TimestampCreated', 'desc')
-            	->first();
-
-        if(empty($driverTotalFine)){
-        	$driverTotalFine = array (
-			   'totalFine' => 0
-			);
-			$driverTotalFine = (object) $driverTotalFine;
+        $driverTotalFine = 0;
+        foreach ($driverViolations as $value) {
+            ($value->blPaymentStatus == 0) ? $driverTotalFine +=  $value->totalFine : $driverTotalFine = 0;
         }
         
         if (!is_null($driver)){
@@ -71,5 +53,21 @@ class driverController extends Controller
         }  
     }
 
+    public function ticketShow($driverID, $ticketID){
+        $datToday = date("Y/m/d");
+        $driver = Driver::find($driverID);
+        $driverViolationsBreakdown = DB::table('tblViolationTransactionHeader')
+            ->select('tblViolationTransactionDetail.*','tblViolationTransactionHeader.*','tblViolationFee.*','tblViolation.*')
+            ->join('tblViolationTransactionDetail', 'tblViolationTransactionHeader.intViolationTransactionHeaderID', '=', 'tblViolationTransactionDetail.intViolationTransactionHeaderID')
+            ->join('tblViolation', 'tblViolationTransactionDetail.intViolationID', '=', 'tblViolation.intViolationID')
+            ->join('tblViolationFee', 'tblViolation.intViolationID', '=', 'tblViolationFee.intViolationID')
+            ->where('tblViolationTransactionHeader.strControlNumber', $ticketID)
+            ->whereRaw('tblViolationFee.datEndDate >= tblViolationTransactionHeader.TimestampCreated')
+            ->whereRaw('tblViolationFee.datStartDate <= tblViolationTransactionHeader.TimestampCreated' )
+            ->orderBy('tblViolationTransactionHeader.TimestampCreated', 'desc')
+            ->get();
 
+
+        return view('driver.ticket', ['driverViolationsBreakdown' => $driverViolationsBreakdown, 'driver' => $driver, 'ticketNumber' => $ticketID, 'datToday' => $datToday]);
+    }
 }

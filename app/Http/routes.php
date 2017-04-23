@@ -50,9 +50,11 @@ Route::group(['middleware' => 'auth'], function(){
 		'uses' => 'web\driverController@show',
 		'as' => 'driver.show'
 	));
+	Route::get('/{driverID}/tickets/show/{ticketID}', array(
+		'uses' => 'web\driverController@ticketShow',
+		'as' => 'driver.ticketShow'
+	));
 	//----------Driver----------//
-
-
 
 
 	//----------Enforcer----------//
@@ -158,6 +160,7 @@ Route::group(['middleware' => ['jwt.auth'], 'prefix' => 'api/v1', 'namespace' =>
 	Route::get('enforcercurrentlogin', 'EnforcerController@enforcerCurrentLogin');
 	Route::get('listviolationtoday', 'DriverViolationController@enforcerListViolationToday');
 	Route::get('violationdetails/{id}', 'DriverViolationController@ticketDetails');
+	Route::get('listviolationtodaysearchselected/{license}', 'DriverViolationController@enforcerListViolationTodaySelectSearched');
 
 });
 
