@@ -3,5 +3,4 @@ $('document').ready(function(){
     $('#driverTicketsTable tbody').on('click', '.clickable-row', function () {
         window.location = $(this).data("href");
     } );
-
 });

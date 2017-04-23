@@ -46,16 +46,29 @@ Route::group(['middleware' => 'auth'], function(){
 		'uses' => 'web\driverController@index',
 		'as' => 'driver.index'
 	));
-	Route::get('/drivers/show/{id}', array(
+	Route::get('/drivers/{id}', array(
 		'uses' => 'web\driverController@show',
 		'as' => 'driver.show'
 	));
-	Route::get('/{driverID}/tickets/show/{ticketID}', array(
+	Route::get('drivers/{driverID}/tickets/payment/{ticketID}', array(
 		'uses' => 'web\driverController@ticketShow',
 		'as' => 'driver.ticketShow'
 	));
+	Route::get('drivers/{driverID}/tickets/{ticketID}', array(
+		'uses' => 'web\driverController@ticketShowInfo',
+		'as' => 'driver.ticketShowInfo'
+	));
 	//----------Driver----------//
 
+
+	//----------Payment----------//
+
+	Route::post('/payment/walkin', array(
+		'uses' => 'web\paymentController@walkin',
+		'as' => 'payment.walkin'
+	));
+
+	//----------Payment----------//
 
 	//----------Enforcer----------//
 	Route::get('/enforcers', array(

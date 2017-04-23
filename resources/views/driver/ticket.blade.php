@@ -14,7 +14,8 @@
         <ol class="breadcrumb">
             <li><a href="{{ URL::to('/dashboard') }}"><i class="fa fa-wrench"></i> Dashboard</a></li>
             <li><a href="{{ URL::to('/drivers') }}"></i> Drivers</a></li>
-           
+            <li><a href='{{ URL::to("/drivers/$driver->intDriverID") }}'></i>{{$driver->strDriverFirstname}} {{$driver->strDriverLastname}}</a></li>
+           <li class="active">{{$ticketNumber}}</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -91,20 +92,18 @@
         ?>
         <div class="row">
             <!-- accepted payments column -->
-            <div class="col-xs-6">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
                 <p class="lead">Payment Methods:</p>
                 <img src="{{ URL::asset('assets/image/credit/visa.png') }}" alt="Visa">
                 <img src="{{ URL::asset('assets/image/credit/mastercard.png') }}" alt="Mastercard">
                 <img src="{{ URL::asset('assets/image/credit/unionbank1.jpg') }}" alt="UnionBank">
                 <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-                Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg
-                dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
+                Being a Visa card, the UnionBank Visa Debit Card can be used to make purchases at millions of local and global merchant outlets where Visa cards are accepted, as well as withdraw cash from more than 1.8 million ATMs in the Philippines and around the world.
                 </p>
             </div>
             <!-- /.col -->
-            <div class="col-xs-6">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
                 <p class="lead">Amount Due</p>
-
                 <div class="table-responsive">
                     <table class="table">
                         <tr>
@@ -129,9 +128,9 @@
         <!-- this row will not appear when printing -->
         <div class="row no-print">
             <div class="col-xs-12">
-                <button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment
+                <button type="button" class="btn btn-success pull-right submitWalkinPayment"><i class="fa fa-credit-card"></i> Submit Payment
                 </button>
-                <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
+                <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;" id="btnPrintInvoice">
                 <i class="fa fa-print"></i> Print
                 </button>
             </div>
@@ -139,6 +138,13 @@
     </section>
     <!-- /.content -->
     <div class="clearfix"></div>
+
+    <div class="hide">
+        <form method="POST" action="{{ URL::to('/payment/walkin') }}" id="walkinPayment">
+            <input type="hidden" name="strTransactionControlNumber" value="{{$ticketNumber}}">
+            <input type="hidden" name="dblPaymentAmount" value="{{$dblTotal}}">
+        </form>
+    </div>
 @stop
 
 @section('script')

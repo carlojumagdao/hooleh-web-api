@@ -68,17 +68,18 @@
                                 <th>Fine</th>
                                 <th>Date Caught</th>
                                 <th>Status</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($driverViolations as $driverViolation)
                                 <tr>
-                                    <td style="cursor: pointer" class="clickable-row name" data-href='{{ URL::to("$driver->intDriverID/tickets/show/$driverViolation->strControlNumber")}}'>
+                                    <td style="cursor: pointer" class="clickable-row name" data-href='{{ URL::to("drivers/$driver->intDriverID/tickets/$driverViolation->strControlNumber")}}'>
                                     {{$driverViolation->strControlNumber}}</td> 
                                     <td>Php {{number_format($driverViolation->totalFine,2)}}</td>
                                     <td>{{date('M j, Y',strtotime($driverViolation-> 
                                     TimestampCreated))}}</td>
-                                    <td >
+                                    <td width="50px">
                                         @if($driverViolation->blPaymentStatus)
                                             <span class="badge bg-green">
                                                 Paid
@@ -89,6 +90,13 @@
                                             </span>
                                         @endif
                                     </td>   
+                                    <td width="50px">
+                                        @if(!$driverViolation->blPaymentStatus)
+                                        <a href='{{ URL::to("drivers/$driver->intDriverID/tickets/payment/$driverViolation->strControlNumber")}}' type="button" class="btn btn-sm btn-default">
+                                                Pay Now
+                                        </a>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -98,6 +106,7 @@
                                 <th>Fine</th>
                                 <th>Date</th>
                                 <th>Status</th>
+                                <th></th>
                             </tr>
                         </tfoot>
                     </table>

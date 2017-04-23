@@ -41,7 +41,7 @@
                                         <td class="hide classdriverPrimaryKey">{{$driver->intDriverID}}</td>
                                         <td class="hide classFirstname">{{$driver->strDriverFirstname}}</td>
                                         <td class="hide classLastname">{{$driver->strDriverLastname}}</td>   
-                                        <td style="cursor: pointer" class="clickable-row name" data-href="drivers/show/{{$driver->intDriverID}}">{{$driver->strDriverLicense}}</td> 
+                                        <td style="cursor: pointer" class="clickable-row name" data-href="drivers/{{$driver->intDriverID}}">{{$driver->strDriverLicense}}</td> 
                                         <td >
                                             {{$driver->strDriverFirstname}} {{$driver->strDriverLastname}}
                                         </td>

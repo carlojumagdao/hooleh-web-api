@@ -7,6 +7,7 @@ use DB;
 use Carbon;
 use Hash;
 use App\Models\Driver;
+use App\Models\Payment;
 use App\Models\TransactionHeader;
 use App\Models\TransactionDetail;
 use App\Models\LicenseType;
@@ -70,4 +71,35 @@ class driverController extends Controller
 
         return view('driver.ticket', ['driverViolationsBreakdown' => $driverViolationsBreakdown, 'driver' => $driver, 'ticketNumber' => $ticketID, 'datToday' => $datToday]);
     }
+
+    public function ticketShowInfo($driverID, $ticketID){
+
+        $driver = Driver::find($driverID);
+        $transHeader = TransactionHeader::where('strControlNumber', $ticketID)
+                        ->join('tblEnforcer', 'tblViolationTransactionHeader.intEnforcerID', '=', 'tblEnforcer.intEnforcerID')
+                        ->join('tblVehicleType', 'tblViolationTransactionHeader.intVehicleTypeID', '=', 'tblVehicleType.intVehicleID')
+                        ->first();
+
+        if($transHeader->blPaymentStatus){
+            $payment = Payment::where('strTransactionControlNumber', $ticketID)
+                                    ->first();
+        } else{
+            $payment = array('strConfirmationNumber' =>  0);
+        }
+
+        $driverViolationsBreakdown = DB::table('tblViolationTransactionHeader')
+            ->select('tblViolationTransactionDetail.*','tblViolationTransactionHeader.*','tblViolationFee.*','tblViolation.*')
+            ->join('tblViolationTransactionDetail', 'tblViolationTransactionHeader.intViolationTransactionHeaderID', '=', 'tblViolationTransactionDetail.intViolationTransactionHeaderID')
+            ->join('tblViolation', 'tblViolationTransactionDetail.intViolationID', '=', 'tblViolation.intViolationID')
+            ->join('tblViolationFee', 'tblViolation.intViolationID', '=', 'tblViolationFee.intViolationID')
+            ->where('tblViolationTransactionHeader.strControlNumber', $ticketID)
+            ->whereRaw('tblViolationFee.datEndDate >= tblViolationTransactionHeader.TimestampCreated')
+            ->whereRaw('tblViolationFee.datStartDate <= tblViolationTransactionHeader.TimestampCreated' )
+            ->orderBy('tblViolationTransactionHeader.TimestampCreated', 'desc')
+            ->get();
+
+
+        return view('driver.ticketShowInfo', ['driverViolationsBreakdown' => $driverViolationsBreakdown, 'driver' => $driver, 'ticketNumber' => $ticketID, 'transHeader' => $transHeader, 'payment' => $payment]);
+    }
+
 }
