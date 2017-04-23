@@ -57,7 +57,7 @@ class DriverViolationController extends Controller
             $counter = new SmartCounter();
 
             $id = DB::table('tblViolationTransactionHeader')->insertGetId([
-                'strControlNumber' => $counter->smartcounter($violationControlNumber),
+                'strControlNumber' => $counter->smartcounter($violationControlNumber->strControlNumber),
                 'intEnforcerID' => $user->Enforcer->intEnforcerID,
                 'intDriverID' => $driverID->intDriverID,
                 'strRegistrationSticker' => $request->strRegistrationSticker,
