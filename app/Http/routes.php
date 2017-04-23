@@ -158,6 +158,7 @@ Route::group(['middleware' => ['jwt.auth'], 'prefix' => 'api/v1', 'namespace' =>
 	Route::get('enforcercurrentlogin', 'EnforcerController@enforcerCurrentLogin');
 	Route::get('listviolationtoday', 'DriverViolationController@enforcerListViolationToday');
 	Route::get('violationdetails/{id}', 'DriverViolationController@ticketDetails');
+	Route::get('listviolationtodaysearchselected/{license}', 'DriverViolationController@enforcerListViolationTodaySelectSearched');
 
 });
 
