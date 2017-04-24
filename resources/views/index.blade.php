@@ -36,7 +36,7 @@
                 <!-- Logo -->
                 <a href="index.php" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
-                    <span class="logo-mini"><img src="{{ URL::asset('assets/image/icons/Hooleh.png') }}" class="img-responsive"/></span>
+                    <span class="logo-mini"><b>H</b></span>
                     <!-- logo for regular state and mobile devices -->
                     <span class="logo-lg"><b>Hooleh</b></span>
                 </a>
@@ -46,6 +46,36 @@
                     <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                         <span class="sr-only">Toggle navigation</span>
                     </a>
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <!-- User Account: style can be found in dropdown.less -->
+                            <li class="dropdown user user-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="{{ URL::asset('assets/image/avatar/AdminAvatar.jpg') }}" class="user-image" alt="User Image">
+                                <span class="hidden-xs">{{ Auth::user()->username }}</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header">
+                                    <img src="{{ URL::asset('assets/image/avatar/AdminAvatar.jpg') }}" class="img-circle" alt="User Image" height="60" width="60">
+
+                                    <p>
+                                    {{ Auth::user()->username }}
+                                    </p>
+                                </li>
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                    <a href="{{ URL::to('/user/profile') }}" class="btn btn-default btn-flat">Profile</a>
+                                    </div>
+                                    <div class="pull-right">
+                                    <a href="{{ URL::to('/auth/logout') }}" class="btn btn-default btn-flat">Sign out</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        </ul>
+                    </div>
                 </nav>
             </header>
             <!-- NAVBAR  -->
@@ -56,11 +86,11 @@
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="{{ URL::asset('assets/dist/img/avatar.png') }}" class="img-circle" alt="User Image">
+                            <img src="{{ URL::asset('assets/image/avatar/AdminAvatar.jpg') }}" img class="img-circle" height="65" width="65" id="user-pic" >
                         </div>
                         <div class="pull-left info">
-                            <p>User Name</p>
-                            <a href="#"><i class="fa fa-circle text-success"></i> Administrator</a>
+                            <p>{{ Auth::user()->username }}</p>
+                            <a href="{{ URL::to('/user/profile') }}">Administrator</a>
                         </div>
                     </div>
                     

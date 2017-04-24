@@ -47,7 +47,7 @@
                         </li>
                         <li>
                             <a href="#">Total unpaid fine <span class="pull-right">
-                                <b>Php {{number_format($driverTotalFine->totalFine,2)}}</b> 
+                                <b>Php {{number_format($driverTotalFine,2)}}</b> 
                             </span></a>
                         </li>
                     </ul>
@@ -55,29 +55,31 @@
             </div>
         </div>
 
-        <div class="col-md-8" id="driverViolationTable">
-            <div class="box">
+        <div class="col-md-8" id="driverTicketsTable">
+            <div class="box box-primary">
                 <div class="box-header">
-                    <h3 class="box-title">List of {{$driver->strDriverFirstname}} {{$driver->strDriverLastname}}'s violations</h3>
+                    <h3 class="box-title">LIST OF TICKETS</h3>
                 </div>
                 <div class="box-body">
                     <table id="dtblDriverViolations" class="table table-bordered table-hover">
                         <thead>
                             <tr> 
                                 <th>Control #</th>
-                                <th>Total Fine</th>
+                                <th>Fine</th>
                                 <th>Date Caught</th>
                                 <th>Status</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($driverViolations as $driverViolation)
                                 <tr>
-                                    <td>{{$driverViolation->strControlNumber}}</td> 
+                                    <td style="cursor: pointer" class="clickable-row name" data-href='{{ URL::to("drivers/$driver->intDriverID/tickets/$driverViolation->strControlNumber")}}'>
+                                    {{$driverViolation->strControlNumber}}</td> 
                                     <td>Php {{number_format($driverViolation->totalFine,2)}}</td>
                                     <td>{{date('M j, Y',strtotime($driverViolation-> 
                                     TimestampCreated))}}</td>
-                                    <td>
+                                    <td width="50px">
                                         @if($driverViolation->blPaymentStatus)
                                             <span class="badge bg-green">
                                                 Paid
@@ -88,15 +90,23 @@
                                             </span>
                                         @endif
                                     </td>   
+                                    <td width="50px">
+                                        @if(!$driverViolation->blPaymentStatus)
+                                        <a href='{{ URL::to("drivers/$driver->intDriverID/tickets/payment/$driverViolation->strControlNumber")}}' type="button" class="btn btn-sm btn-default">
+                                                Pay Now
+                                        </a>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th>Control #</th>
-                                <th>Total Fine</th>
+                                <th>Fine</th>
                                 <th>Date</th>
                                 <th>Status</th>
+                                <th></th>
                             </tr>
                         </tfoot>
                     </table>
@@ -104,4 +114,8 @@
             </div>
         </div>
     </section>
+@stop
+
+@section('script')
+    <script src="{{ URL::asset('assets/js/driverShow.js') }}"></script>
 @stop

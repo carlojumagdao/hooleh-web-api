@@ -29,6 +29,7 @@
                                     <th class="hide"></th>
                                     <th class="hide"></th>
                                     <th class="hide"></th>
+                                    <th>License No.</th>
                                     <th>Name</th>
                                     <th>Last signed-in</th>
                                     <th></th>
@@ -39,7 +40,9 @@
                                     <tr>
                                         <td class="hide classdriverPrimaryKey">{{$driver->intDriverID}}</td>
                                         <td class="hide classFirstname">{{$driver->strDriverFirstname}}</td>
-                                        <td class="hide classLastname">{{$driver->strDriverLastname}}</td>    <td style="cursor: pointer" class="clickable-row name" data-href="drivers/show/{{$driver->intDriverID}}">
+                                        <td class="hide classLastname">{{$driver->strDriverLastname}}</td>   
+                                        <td style="cursor: pointer" class="clickable-row name" data-href="drivers/{{$driver->intDriverID}}">{{$driver->strDriverLicense}}</td> 
+                                        <td >
                                             {{$driver->strDriverFirstname}} {{$driver->strDriverLastname}}
                                         </td>
                                         <td class="lastSignedIn">
@@ -49,7 +52,7 @@
                                             ?>   
                                             {{$dateLastSignedin}}
                                         </td>
-                                        <td width="150px">
+                                        <td width="80px">
                                             <button type="button" class="btn btn-sm btn-default btnRenameEnforcer" data-toggle="tooltip" title="Rename">
                                                 <i class="fa fa-fw fa-pencil"></i>
                                             </button>
@@ -62,6 +65,7 @@
                                     <th class="hide"></th>
                                     <th class="hide"></th>
                                     <th class="hide"></th>
+                                    <th>License No.</th>
                                     <th>Name</th>
                                     <th>Last signed-in</th>
                                     <th></th>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
+use App\SmartCounter AS SmartCounter;
 use App\Models\Driver;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Carbon\Carbon;
@@ -49,8 +50,14 @@ class DriverViolationController extends Controller
                 ->where('strDriverLicense', $request->strDriverLicenseNumber)
                 ->first();
 
+            $violationControlNumber = DB::table('tblViolationTransactionHeader')
+                ->select('strControlNumber')
+                ->orderBy('strControlNumber', 'desc')
+                ->first();
+            $counter = new SmartCounter();
+
             $id = DB::table('tblViolationTransactionHeader')->insertGetId([
-                'strControlNumber' => $request->strControlNumber,
+                'strControlNumber' => $counter->smartcounter($violationControlNumber->strControlNumber),
                 'intEnforcerID' => $user->Enforcer->intEnforcerID,
                 'intDriverID' => $driverID->intDriverID,
                 'strRegistrationSticker' => $request->strRegistrationSticker,
@@ -141,6 +148,23 @@ class DriverViolationController extends Controller
         return response()->json($listViolationToday);
     }
 
+    public function enforcerListViolationTodaySelectSearched($license){
+        $user = JWTAuth::parseToken()->toUser();
+        $now = Carbon::now()->addHours(8);
+        $now->hour = 0;
+        $now->minute = 0;
+        $now->second = 0;
+
+        $listViolationToday = DB::table('tblViolationTransactionHeader')
+            ->join('tblDriver', 'tblDriver.intDriverID', '=', 'tblViolationTransactionHeader.intDriverID')
+            ->select('tblDriver.*', 'tblViolationTransactionHeader.*')
+            ->where('tblViolationTransactionHeader.TimestampCreated', '>=', $now)
+            ->where('tblDriver.strDriverLicense', 'like','%'.$license.'%')
+            ->get();
+
+        return response()->json($listViolationToday);
+    }
+
     public function ticketDetails($id){
 
         $dateViolation = DB::table('tblViolationTransactionHeader')
@@ -152,7 +176,7 @@ class DriverViolationController extends Controller
             ->join('tblViolationTransactionDetail','tblViolationTransactionDetail.intViolationTransactionHeaderID', '=', 'tblViolationTransactionHeader.intViolationTransactionHeaderID')
             ->join('tblViolation', 'tblViolation.intViolationID', '=', 'tblViolationTransactionDetail.intViolationID')
             ->join('tblViolationFee', 'tblViolationFee.intViolationID', '=', 'tblViolation.intViolationID')
-            ->select('tblViolation.*', 'tblViolationFee.dblPrice')
+            ->select('tblViolation.*', 'tblViolationFee.dblPrice', 'tblViolationTransactionHeader.blPaymentStatus')
             ->where('tblViolationTransactionHeader.strControlNumber', $id)
             ->where('tblViolationFee.datStartDate', '<=', $dateViolation->TimestampCreated)
             ->where('tblViolationFee.datEndDate', '>=', $dateViolation->TimestampCreated)
