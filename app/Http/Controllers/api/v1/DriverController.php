@@ -112,9 +112,8 @@ class DriverController extends Controller
             return response()->json($driver);
         }else{
             return response()->json([
-                'message' => 'Driver not Found.',
-                'status code' => 404
-            ]);
+                'message' => 'Driver not Found.'
+            ], 404);
         }
     }
 

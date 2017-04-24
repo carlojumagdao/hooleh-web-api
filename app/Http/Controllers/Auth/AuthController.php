@@ -38,6 +38,9 @@ class AuthController extends Controller
 
         } catch (JWTException $e) {
             return response()->json(['error' => 'Something went wrong.'], 500);
+        }catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
+            return response()->json(['token_absent'], $e->getStatusCode());
+
         }
 
         return response()->json(compact('token'))->setStatusCode(200);

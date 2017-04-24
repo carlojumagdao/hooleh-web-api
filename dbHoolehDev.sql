@@ -1,5 +1,5 @@
-CREATE DATABASE dbHooleh;
-USE dbHooleh;
+CREATE DATABASE dbHooleh1;
+USE dbHooleh1;
 
 -- MySQL dump 10.13  Distrib 5.6.24, for osx10.8 (x86_64)
 --
