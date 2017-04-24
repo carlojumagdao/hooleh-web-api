@@ -73,7 +73,7 @@ class AuthController extends Controller
             return response()->json(['token_absent'], $e->getStatusCode());
 
         }
-        return response()->json(['Logout successful'], 200);
+        return response()->json([ 'message' => 'Logout successful'], 200);
     }
 
     /**
