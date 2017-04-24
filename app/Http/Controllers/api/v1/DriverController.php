@@ -19,21 +19,13 @@ class DriverController extends Controller
      */
     public function index()
     {
-        $users = JWTAuth::parseToken()->toUser();
-        if ($users['original']['tinyintIdentifier'] == 1){
-            $drivers = DB::table('tblDriver')
-                ->join('tblLicenseType', 'tblDriver.intLicenseType', '=', 'tblLicenseType.intLicenseId')
-                ->select('tblDriver.*', 'tblLicenseType.strLicenseType')
-                ->orderBy('tblDriver.strDriverLastName', 'asc')
-                ->get();
+        $drivers = DB::table('tblDriver')
+            ->join('tblLicenseType', 'tblDriver.intLicenseType', '=', 'tblLicenseType.intLicenseId')
+            ->select('tblDriver.*', 'tblLicenseType.strLicenseType')
+            ->orderBy('tblDriver.strDriverLastName', 'asc')
+            ->get();
 
-            return response()->json($drivers);
-        } else{
-            return response()->json([
-                'message' => 'Unauthorized.',
-                'status Code' => 401
-            ]);
-        }
+        return response()->json($drivers);
             
     }
 
