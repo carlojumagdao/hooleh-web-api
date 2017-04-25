@@ -11,6 +11,15 @@
 |
 */
 
+
+Route::get('/portal/driver/{id}', array(
+	'uses' => 'portal\driverPortalController@profile',
+	'as' => 'driver.portal.show'
+));
+
+
+
+
 Route::get('/', function () {
     if(Auth::check()){return Redirect::to('dashboard');}
     return view('auth.login');
