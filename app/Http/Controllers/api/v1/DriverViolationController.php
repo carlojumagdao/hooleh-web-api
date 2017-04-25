@@ -46,6 +46,7 @@ class DriverViolationController extends Controller
             DB::beginTransaction();
             $user = JWTAuth::parseToken()->toUser();
             // $now = date("Y-m-d H:i:s");
+            $now = Carbon::now()->addHours(8);
             $driverID = DB::table('tblDriver')
                 ->select('intDriverID')
                 ->where('strDriverLicense', $request->strDriverLicenseNumber)
