@@ -34,6 +34,7 @@
             .title {
                 font-size: 72px;
                 margin-bottom: 40px;
+                color: black;
             }
         </style>
     </head>
@@ -44,7 +45,7 @@
                 <p><b>Confirmation Number: {{$strConfirmationNumber}}</b></p>
             </div>
             <div><b>
-                <a href='{{ URL::to("/drivers/$driverID") }}' type="button" class="btn btn-primary">
+                <a href='{{ URL::to("portal/driver/$driverID") }}' type="button" class="btn btn-primary">
                     Back to Driver's Page
                 </a>
                 </b>

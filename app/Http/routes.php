@@ -11,6 +11,31 @@
 |
 */
 
+Route::get('/portal', function () {
+    return view('portal.auth.login');
+});
+
+Route::post('/portal/auth/login', array(
+	'uses' => 'portal\driverPortalController@login',
+	'as' => 'driver.portal.login'
+));
+
+Route::get('/portal/driver/{id}', array(
+	'uses' => 'portal\driverPortalController@profile',
+	'as' => 'driver.portal.show'
+));
+
+Route::get('portal/drivers/{driverID}/tickets/invoice/{ticketID}', array(
+	'uses' => 'portal\driverPortalController@invoice',
+	'as' => 'driver.porta.invoice'
+));
+
+Route::post('/payment/portal', array(
+	'uses' => 'web\paymentController@portal',
+	'as' => 'payment.portal'
+));
+
+
 Route::get('/', function () {
     if(Auth::check()){return Redirect::to('dashboard');}
     return view('auth.login');

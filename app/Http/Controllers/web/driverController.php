@@ -44,7 +44,7 @@ class driverController extends Controller
 
         $driverTotalFine = 0;
         foreach ($driverViolations as $value) {
-            ($value->blPaymentStatus == 0) ? $driverTotalFine +=  $value->totalFine : $driverTotalFine = 0;
+            ($value->blPaymentStatus == 0) ? $driverTotalFine +=  $value->totalFine : $driverTotalFine;
         }
         
         if (!is_null($driver)){
