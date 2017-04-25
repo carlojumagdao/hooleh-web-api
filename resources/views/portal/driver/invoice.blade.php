@@ -12,7 +12,7 @@
 
         </h1>
         <ol class="breadcrumb">
-            <li><a href="{{ URL::to('/') }}"><i class="fa fa-wrench"></i> Dashboard</a></li>
+            <li><i class="fa fa-wrench"></i> Dashboard</a></li>
            <li class="active">{{$ticketNumber}}</li>
         </ol>
     </section>
