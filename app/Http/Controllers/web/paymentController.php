@@ -91,7 +91,7 @@ class paymentController extends Controller
 		} else {
 			$manage = (array) json_decode($response);
 			if($manage['status'] == 'F'){
-				return Redirect::back()->withErrors($manage);
+				var_dump($manage);
 			} else {
 				try{
 					DB::beginTransaction();  
