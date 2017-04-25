@@ -45,7 +45,7 @@ class DriverViolationController extends Controller
         try {
             DB::beginTransaction();
             $user = JWTAuth::parseToken()->toUser();
-            $now = date("Y-m-d H:i:s");
+            // $now = date("Y-m-d H:i:s");
             $driverID = DB::table('tblDriver')
                 ->select('intDriverID')
                 ->where('strDriverLicense', $request->strDriverLicenseNumber)
@@ -65,8 +65,7 @@ class DriverViolationController extends Controller
                 'strPlateNumber' => $request->strPlateNumber,
                 'intVehicleTypeID' => $request->intVehicleTypeID,
                 'dblLatitude' => $request->dblLatitude,
-                'dblLongitude' => $request->dblLongitude,
-                'TimestampCreated' => $now
+                'dblLongitude' => $request->dblLongitude
             ]);
 
             $violations = json_decode($request->violations);
