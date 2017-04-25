@@ -129,7 +129,7 @@
                 <button type="button" class="btn btn-success pull-right submitPortalPayment"><i class="fa fa-credit-card"></i> Submit Payment
                 </button>
                 <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;" id="btnPrintInvoice">
-                <i class="fa fa-print"></i> Generate PDF
+                <i class="fa fa-print"></i> PDF
                 </button>
             </div>
         </div>
