@@ -11,6 +11,14 @@
 |
 */
 
+Route::get('/portal', function () {
+    return view('portal.auth.login');
+});
+
+Route::post('/portal/auth/login', array(
+	'uses' => 'portal\driverPortalController@login',
+	'as' => 'driver.portal.login'
+));
 
 Route::get('/portal/driver/{id}', array(
 	'uses' => 'portal\driverPortalController@profile',

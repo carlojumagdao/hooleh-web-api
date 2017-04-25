@@ -44,7 +44,7 @@
                 <p>Confirmation Number: {{$strConfirmationNumber}}</p>
             </div>
             <div>
-                <a href='{{ URL::to("portal/driver/$driverID") }}' type="button" class="btn btn-primary">
+                <a href='{{ URL::to("/drivers/$driverID") }}' type="button" class="btn btn-primary">
                     Back to Driver's Page
                 </a>
             </div>

@@ -9,12 +9,27 @@ use Hash;
 use App\Models\Driver;
 use App\Models\Payment;
 use App\Models\TransactionHeader;
+use Redirect;
 use App\Models\TransactionDetail;
 use App\Models\LicenseType;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 class driverPortalController extends Controller
 {
+
+    public function login(Request $request){
+        // var_dump($request);
+        $driver = Driver::where([
+                ['strDriverLicense', $request->driverlicense],
+                ['datDriverBirthday', $request->birthday]
+            ])->first();
+        if (!$driver) {
+            return Redirect::back()->withErrors("Authentication Failed");
+        } else{
+            return redirect()->route('driver.portal.show', ['id' => $driver->intDriverID]);
+        }
+    }
+
     public function profile($id)
     {
         $driver = Driver::find($id);

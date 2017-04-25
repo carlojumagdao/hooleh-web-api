@@ -1,8 +1,8 @@
 $('.submitPortalPayment').click(function() {
     bootbox.confirm({ 
         size: "medium",
-        title: "Payment Confirmation",
-        message:  "Are you sure you want to perform this transaction?",
+        title: "UnionBank Payment Confirmation",
+        message:  "Are you sure you want to perform this transaction using your unionbank account?",
         callback: function(result){ 
             if(result){
                 $('#portalPayment').submit();
