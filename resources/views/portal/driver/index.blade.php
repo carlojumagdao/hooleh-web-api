@@ -84,7 +84,8 @@
                         </li>   
                         <li>
                             <a href="#">Enforcer in-charge <span class="pull-right">
-                                {{$LicenseType->strLicenseType}}
+                                {{$driverViolation->strEnforcerFirstname}}
+                                 {{$driverViolation->strEnforcerLastname}}
                             </span></a>
                         </li>
                         <li>
