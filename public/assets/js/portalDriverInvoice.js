@@ -1,13 +1,13 @@
 $('.submitPortalPayment').click(function() {
-    bootbox.confirm({ 
-        size: "medium",
-        title: "UnionBank Payment Confirmation",
-        message:  "Are you sure you want to perform this transaction using your unionbank account?",
-        callback: function(result){ 
-            if(result){
+    bootbox.prompt({
+        size: "small",
+        title: "Enter your password in your UnionBank account",
+        inputType: 'password',
+        callback: function (result) {
+            if(result == "Hooleh12345"){
                 $('#portalPayment').submit();
             } else {
-                return false;
+                return false
             }
         }
     });
@@ -16,3 +16,5 @@ $('.submitPortalPayment').click(function() {
 $('#btnPrintInvoice').click(function(){
     window.print();
 });
+
+
