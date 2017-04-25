@@ -14,9 +14,9 @@
                 margin: 0;
                 padding: 0;
                 width: 100%;
-                color: #B0BEC5;
+                color: black;
                 display: table;
-                font-weight: 100;
+                font-weight: bold;
                 font-family: 'Lato';
             }
 
@@ -41,12 +41,13 @@
         <div class="container">
             <div class="content">
                 <div class="title">Payment Successful!</div>
-                <p>Confirmation Number: {{$strConfirmationNumber}}</p>
+                <p><b>Confirmation Number: {{$strConfirmationNumber}}</b></p>
             </div>
-            <div>
-                <a href='{{ URL::to("portal/driver/$driverID") }}' type="button" class="btn btn-primary">
+            <div><b>
+                <a href='{{ URL::to("/drivers/$driverID") }}' type="button" class="btn btn-primary">
                     Back to Driver's Page
                 </a>
+                </b>
             </div>
         </div>
     </body>
