@@ -68,18 +68,7 @@ class paymentController extends Controller
 		CURLOPT_TIMEOUT => 30,
 		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		CURLOPT_CUSTOMREQUEST => "POST",
-		CURLOPT_POSTFIELDS => 
-			'{
-			  "channel_id": "HoolehApp",
-			  "transaction_id": "$newConfirmationNumber",
-			  "source_account": "101153395716",
-			  "source_currency": "PHP",
-			  "biller_id": "DPOS-QC",
-			  "reference1": "$request->strTransactionControlNumber",
-			  "reference2": "$request->strDriverLicense",
-			  "reference3": "",
-			  "amount": $request->dblPaymentAmount
-			}',
+		CURLOPT_POSTFIELDS => "channel_id\":\"HoolehApp\",\"transaction_id\":\"$newConfirmationNumber\",\"source_account\":\"101153395716\",\"source_currency\":\"PHP\",\"biller_id\":\"DPOS-QC\",\"reference1\":\"$request->strTransactionControlNumber\",\"reference2\":\"$request->strDriverLicense\",\"reference3\":\"\",\"amount\":$request->dblPaymentAmount}",
 		CURLOPT_HTTPHEADER => array(
 			"accept: application/json",
 			"content-type: application/json",
