@@ -136,7 +136,7 @@ class DriverViolationController extends Controller
 
     public function enforcerListViolationToday(){
         $user = JWTAuth::parseToken()->toUser();
-        $now = Carbon::now()->addHours(8);
+        $now = Carbon::now();
         $now->hour = 0;
         $now->minute = 0;
         $now->second = 0;
