@@ -17,7 +17,15 @@ Route::get('/portal/driver/{id}', array(
 	'as' => 'driver.portal.show'
 ));
 
+Route::get('portal/drivers/{driverID}/tickets/invoice/{ticketID}', array(
+	'uses' => 'portal\driverPortalController@invoice',
+	'as' => 'driver.porta.invoice'
+));
 
+Route::post('/payment/portal', array(
+	'uses' => 'web\paymentController@portal',
+	'as' => 'payment.portal'
+));
 
 
 Route::get('/', function () {

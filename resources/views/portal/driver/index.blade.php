@@ -106,7 +106,7 @@
                         </li>
                         <li>
                             @if(!$driverViolation->blPaymentStatus)
-                                <a href='{{ URL::to("drivers/$driver->intDriverID/tickets/payment/$driverViolation->strControlNumber")}}'>
+                                <a href='{{ URL::to("portal/drivers/$driver->intDriverID/tickets/invoice/$driverViolation->strControlNumber")}}'>
                                     <center>    
                                         <button class="btn btn-primary btn-block">PAY NOW</button>
                                     </center>

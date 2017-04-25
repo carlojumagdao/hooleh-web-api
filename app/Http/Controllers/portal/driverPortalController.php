@@ -36,7 +36,7 @@ class driverPortalController extends Controller
 
         $driverTotalFine = 0;
         foreach ($driverViolations as $value) {
-            ($value->blPaymentStatus == 0) ? $driverTotalFine +=  $value->totalFine : $driverTotalFine = 0;
+            ($value->blPaymentStatus == 0) ? $driverTotalFine +=  $value->totalFine : $driverTotalFine;
         }
         
         if (!is_null($driver)){
@@ -44,5 +44,23 @@ class driverPortalController extends Controller
         }else{
             return view('errors.404');
         }  
+    }
+
+    public function invoice($driverID, $ticketID){
+        $datToday = date("Y/m/d");
+        $driver = Driver::find($driverID);
+        $driverViolationsBreakdown = DB::table('tblViolationTransactionHeader')
+            ->select('tblViolationTransactionDetail.*','tblViolationTransactionHeader.*','tblViolationFee.*','tblViolation.*')
+            ->join('tblViolationTransactionDetail', 'tblViolationTransactionHeader.intViolationTransactionHeaderID', '=', 'tblViolationTransactionDetail.intViolationTransactionHeaderID')
+            ->join('tblViolation', 'tblViolationTransactionDetail.intViolationID', '=', 'tblViolation.intViolationID')
+            ->join('tblViolationFee', 'tblViolation.intViolationID', '=', 'tblViolationFee.intViolationID')
+            ->where('tblViolationTransactionHeader.strControlNumber', $ticketID)
+            ->whereRaw('tblViolationFee.datEndDate >= tblViolationTransactionHeader.TimestampCreated')
+            ->whereRaw('tblViolationFee.datStartDate <= tblViolationTransactionHeader.TimestampCreated' )
+            ->orderBy('tblViolationTransactionHeader.TimestampCreated', 'desc')
+            ->get();
+
+
+        return view('portal.driver.invoice', ['driverViolationsBreakdown' => $driverViolationsBreakdown, 'driver' => $driver, 'ticketNumber' => $ticketID, 'datToday' => $datToday]);
     }
 }
