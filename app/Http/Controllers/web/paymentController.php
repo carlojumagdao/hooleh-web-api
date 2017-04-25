@@ -59,6 +59,10 @@ class paymentController extends Controller
         $counter = new SmartCounter();
         $newConfirmationNumber = $counter->smartcounter($confirmationNumber->strConfirmationNumber);
 
+        $reference1 = $request->strTransactionControlNumber;
+        $reference2 = $request->strDriverLicense;
+        $amount = $request->dblPaymentAmount;
+
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
 		CURLOPT_URL => "https://api-uat.unionbankph.com/uhac/sb/payments/initiate",
@@ -68,7 +72,7 @@ class paymentController extends Controller
 		CURLOPT_TIMEOUT => 30,
 		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		CURLOPT_CUSTOMREQUEST => "POST",
-		CURLOPT_POSTFIELDS => "channel_id\":\"HoolehApp\",\"transaction_id\":\"$newConfirmationNumber\",\"source_account\":\"101153395716\",\"source_currency\":\"PHP\",\"biller_id\":\"DPOS-QC\",\"reference1\":\"$request->strTransactionControlNumber\",\"reference2\":\"$request->strDriverLicense\",\"reference3\":\"\",\"amount\":$request->dblPaymentAmount}",
+		CURLOPT_POSTFIELDS => "{\"channel_id\":\"HoolehApp\",\"transaction_id\":\"$newConfirmationNumber\",\"source_account\":\"101153395716\",\"source_currency\":\"PHP\",\"biller_id\":\"DPOS-QC\",\"reference1\":\"$reference1\",\"reference2\":\"$request\",\"reference3\":\"\",\"amount\":$amount}",
 		CURLOPT_HTTPHEADER => array(
 			"accept: application/json",
 			"content-type: application/json",
