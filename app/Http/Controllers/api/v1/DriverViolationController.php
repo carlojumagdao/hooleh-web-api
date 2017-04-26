@@ -52,14 +52,19 @@ class DriverViolationController extends Controller
                 ->where('strDriverLicense', $request->strDriverLicenseNumber)
                 ->first();
 
-            $violationControlNumber = DB::table('tblViolationTransactionHeader')
+            $result = DB::table('tblViolationTransactionHeader')
                 ->select('strControlNumber')
                 ->orderBy('strControlNumber', 'desc')
                 ->first();
+            if (is_null($result)){
+                $violationControlNumber = 'CO-000001-01';
+            } else {
+                $violationControlNumber = $result->strControlNumber;
+            }
             $counter = new SmartCounter();
 
             $id = DB::table('tblViolationTransactionHeader')->insertGetId([
-                'strControlNumber' => $counter->smartcounter($violationControlNumber->strControlNumber),
+                'strControlNumber' => $counter->smartcounter($violationControlNumber),
                 'intEnforcerID' => $user->Enforcer->intEnforcerID,
                 'intDriverID' => $driverID->intDriverID,
                 'strRegistrationSticker' => $request->strRegistrationSticker,
@@ -136,15 +141,21 @@ class DriverViolationController extends Controller
 
     public function enforcerListViolationToday(){
         $user = JWTAuth::parseToken()->toUser();
-        $now = Carbon::now()->addHours(8);
+        $now = Carbon::now();
         $now->hour = 0;
         $now->minute = 0;
-        $now->second = 0;
+        $now->second = 0;   
+
+        $enforcerID = DB::table('tblEnforcer')
+            ->select('intEnforcerID')
+            ->where('intUserID', $user['original']['id'])
+            ->first();
 
         $listViolationToday = DB::table('tblViolationTransactionHeader')
             ->join('tblDriver', 'tblDriver.intDriverID', '=', 'tblViolationTransactionHeader.intDriverID')
             ->select('tblDriver.*', 'tblViolationTransactionHeader.*')
             ->where('tblViolationTransactionHeader.TimestampCreated', '>=', $now)
+            ->where('tblViolationTransactionHeader.intEnforcerID', $enforcerID->intEnforcerID)
             ->get();
 
         return response()->json($listViolationToday);
