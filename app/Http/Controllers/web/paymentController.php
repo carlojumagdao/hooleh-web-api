@@ -23,7 +23,7 @@ class paymentController extends Controller
             ->select('strConfirmationNumber')
             ->orderBy('strConfirmationNumber', 'desc')
             ->first();
-
+            $confirmationNumber = 'CN-00001-AA';
 	        if (empty($result)){
 	        	$confirmationNumber = 'CN-00001-AA';
 	        } else {
@@ -62,7 +62,7 @@ class paymentController extends Controller
             ->select('strConfirmationNumber')
             ->orderBy('strConfirmationNumber', 'desc')
             ->first();
-
+        $confirmationNumber = 'CN-00001-AA';
         if (empty($result)){
         	$confirmationNumber = 'CN-00001-AA';
         } else {
