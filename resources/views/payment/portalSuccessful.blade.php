@@ -8,13 +8,13 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Ticket Payment Invoice
+            Ticket Payment Receipt Invoice
             <small>Control panel</small>
 
         </h1>
         <ol class="breadcrumb">
             <li><i class="fa fa-wrench"></i> Dashboard</a></li>
-           <li class="active">{{$ticketNumber}}</li>
+           <li class="active">{{$strConfirmationNumber}}</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -53,7 +53,6 @@
             </div>
             <!-- /.col -->
             <div class="col-sm-4 invoice-col">
-                <b>Control # {{$ticketNumber}}</b><br>
                 <b>Confirmation Number: {{$strConfirmationNumber}}</b>
             </div>
 
