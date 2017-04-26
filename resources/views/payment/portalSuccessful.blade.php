@@ -80,9 +80,13 @@
         <!-- this row will not appear when printing -->
         <div class="row no-print">
             <div class="col-xs-12">
+                <a href='{{ URL::to("/drivers/$driverID") }}' type="button" class="btn btn-primary">
+                    Back to Driver's Page
+                </a>
                 <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;" id="btnPrintInvoice">
                 <i class="fa fa-print"></i> PDF
                 </button>
+
             </div>
         </div>
     </section>
@@ -91,3 +95,6 @@
 
 @stop
 
+@section('script')
+    <script src="{{ URL::asset('assets/js/portalDriverInvoice.js') }}"></script>
+@stop
