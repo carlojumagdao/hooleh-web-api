@@ -60,8 +60,8 @@
         <!-- /.col -->
         </div>
         <!-- /.row -->
-
-            <!-- /.col -->
+        <div class="row">
+            <!-- accepted payments column -->
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
                 <p class="lead">Amount Due</p>
                 <div class="table-responsive">
