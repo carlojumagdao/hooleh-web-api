@@ -52,12 +52,19 @@ class paymentController extends Controller
     }
     public function portal(Request $request){
 
-        $confirmationNumber = DB::table('tblPayment')
+        $result = DB::table('tblPayment')
             ->select('strConfirmationNumber')
             ->orderBy('strConfirmationNumber', 'desc')
             ->first();
+
+        if (is_null($result)){
+        	$confirmationNumber = 'CN-00001-01';
+        } else {
+        	$confirmationNumber = $result->strConfirmationNumber;
+        }
+
         $counter = new SmartCounter();
-        $newConfirmationNumber = $counter->smartcounter($confirmationNumber->strConfirmationNumber);
+        $newConfirmationNumber = $counter->smartcounter($confirmationNumber);
 
         $reference1 = $request->strTransactionControlNumber;
         $reference2 = $request->strDriverLicense;
