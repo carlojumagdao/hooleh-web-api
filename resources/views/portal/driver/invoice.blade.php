@@ -85,8 +85,7 @@
         </div>
         <!-- /.row -->
         <?php 
-            $dblTax = $dblSubTotal *  .03; 
-            $dblTotal = $dblSubTotal + $dblTax;
+            $dblTotal = $dblSubTotal + 25.00;
         ?>
         <div class="row">
             <!-- accepted payments column -->
@@ -109,8 +108,8 @@
                             <td>Php {{number_format($dblSubTotal,2)}}</td>
                         </tr>
                         <tr>
-                            <th>Tax (.03%)</th>
-                            <td>Php {{number_format($dblTax,2)}}</td>
+                            <th>System fee:</th>
+                            <td>Php 25.00</td>
                         </tr>
                         <tr>
                             <th>Total:</th>
