@@ -4,6 +4,7 @@ namespace App\Http\Controllers\web;
 
 use Illuminate\Http\Request;
 use App\Models\Payment;
+use App\Models\Driver;
 use App\Models\TransactionHeader;
 use App\Http\Requests;
 use Carbon;
