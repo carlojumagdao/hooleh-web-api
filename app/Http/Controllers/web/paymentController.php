@@ -124,7 +124,7 @@ class paymentController extends Controller
 			        $payment->datPaymentTransaction 		= Carbon\Carbon::now();
 			        $payment->save();
 			        DB::commit();
-			        return view('payment.portalSuccessful', ['strConfirmationNumber' => $manage['confirmation_no'], 'driverID' => $driverID], 'driver' => $driver, 'totalAmount' => $request->dblPaymentAmount);
+			        return view('payment.portalSuccessful', ['strConfirmationNumber' => $manage['confirmation_no'], 'driverID' => $driverID, 'driver' => $driver, 'totalAmount' => $request->dblPaymentAmount]);
 				} catch(Exception $f){
 					DB::rollBack();
 					echo $f->getMessage();
