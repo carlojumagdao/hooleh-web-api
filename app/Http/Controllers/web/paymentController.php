@@ -19,11 +19,17 @@ class paymentController extends Controller
     	try{
             DB::beginTransaction();
 	    	
-            $confirmationNumber = DB::table('tblPayment')
-                ->select('strConfirmationNumber')
-                ->orderBy('strConfirmationNumber', 'desc')
-                ->first();
-            $counter = new SmartCounter();
+            $result = DB::table('tblPayment')
+            ->select('strConfirmationNumber')
+            ->orderBy('strConfirmationNumber', 'desc')
+            ->first();
+
+	        if (empty($result)){
+	        	$confirmationNumber = 'CN-00001-AA';
+	        } else {
+	        	$confirmationNumber = $result->strConfirmationNumber;
+	        }
+	        $counter = new SmartCounter();
             $newConfirmationNumber = $counter->smartcounter($confirmationNumber->strConfirmationNumber);
 
 
@@ -57,7 +63,7 @@ class paymentController extends Controller
             ->orderBy('strConfirmationNumber', 'desc')
             ->first();
 
-        if (is_null($result)){
+        if (empty($result)){
         	$confirmationNumber = 'CN-00001-AA';
         } else {
         	$confirmationNumber = $result->strConfirmationNumber;
