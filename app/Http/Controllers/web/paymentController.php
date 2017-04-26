@@ -56,21 +56,20 @@ class paymentController extends Controller
 	        return "error";
         }
     }
+
+    public function generateRandomString($length = 10) {
+	    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	    $charactersLength = strlen($characters);
+	    $randomString = '';
+	    for ($i = 0; $i < $length; $i++) {
+	        $randomString .= $characters[rand(0, $charactersLength - 1)];
+	    }
+	    return $randomString;
+	}
+
     public function portal(Request $request){
 
-        $result = DB::table('tblPayment')
-            ->select('strConfirmationNumber')
-            ->orderBy('strConfirmationNumber', 'desc')
-            ->first();
-
-        if (empty($result)){
-        	$confirmationNumber = 'CN-00001-AC';
-        } else {
-        	$confirmationNumber = $result->strConfirmationNumber;
-        }
-
-        $counter = new SmartCounter();
-        $newConfirmationNumber = $counter->smartcounter($confirmationNumber);
+        $transactionID = $this->generateRandomString();
 
         $reference1 = $request->strTransactionControlNumber;
         $reference2 = $request->strDriverLicense;
@@ -85,7 +84,7 @@ class paymentController extends Controller
 		CURLOPT_TIMEOUT => 30,
 		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		CURLOPT_CUSTOMREQUEST => "POST",
-		CURLOPT_POSTFIELDS => "{\"channel_id\":\"HoolehApp\",\"transaction_id\":\"$newConfirmationNumber\",\"source_account\":\"101153395716\",\"source_currency\":\"PHP\",\"biller_id\":\"DPOS-QC\",\"reference1\":\"$reference1\",\"reference2\":\"$reference2\",\"reference3\":\"000000000C\",\"amount\":$amount}",
+		CURLOPT_POSTFIELDS => "{\"channel_id\":\"HoolehApp\",\"transaction_id\":\"$transactionID\",\"source_account\":\"101153395716\",\"source_currency\":\"PHP\",\"biller_id\":\"DPOS-QC\",\"reference1\":\"$reference1\",\"reference2\":\"$reference2\",\"reference3\":\"000000000C\",\"amount\":$amount}",
 		CURLOPT_HTTPHEADER => array(
 			"accept: application/json",
 			"content-type: application/json",
@@ -117,7 +116,6 @@ class paymentController extends Controller
 			    	$payment = new Payment;
 			    	$payment->strTransactionControlNumber 	= $request->strTransactionControlNumber;
 			    	$payment->strConfirmationNumber			= $manage['confirmation_no'];
-			    	$payment->intAdminID 					= 1;
 			    	$payment->blPaymentMethod 				= 1;
 			        $payment->dblPaymentAmount 				= $request->dblPaymentAmount;
 			        $payment->datPaymentTransaction 		= Carbon\Carbon::now();
