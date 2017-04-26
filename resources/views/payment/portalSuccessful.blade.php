@@ -1,55 +1,94 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Successful Payment</title>
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+<?php 
+    $dblSubTotal = 0;
+?>
+@extends('externallayout')
 
-        <style>
-            html, body {
-                height: 100%;
-            }
+@section('title', 'Payment Invoice')
+@section('content')
+    <section class="content-header">
+        <h1>
+            Ticket Payment Invoice
+            <small>Control panel</small>
 
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                color: black;
-                display: table;
-                font-weight: bold;
-                font-family: 'Lato';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 72px;
-                margin-bottom: 40px;
-                color: black;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Payment Successful!</div>
-                <p><b>Confirmation Number: {{$strConfirmationNumber}}</b></p>
+        </h1>
+        <ol class="breadcrumb">
+            <li><i class="fa fa-wrench"></i> Dashboard</a></li>
+           <li class="active">{{$ticketNumber}}</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="invoice">
+        <!-- title row -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="page-header">
+                    <i class="fa fa-globe"></i> Department of Public Order and Safety - Quezon City
+                    <small class="pull-right">
+                        Date: {{date('M j, Y',strtotime($datToday))}}
+                    </small>
+                </h2>
             </div>
-            <div><b>
-                <a href='{{ URL::to("portal/driver/$driverID") }}' type="button" class="btn btn-primary">
-                    Back to Driver's Page
-                </a>
-                </b>
+        <!-- /.col -->
+        </div>
+        <!-- info row -->
+        <div class="row invoice-info">
+            <div class="col-sm-4 invoice-col">
+                From:
+                <address>
+                    <strong>DPOS, Quezon City.</strong><br>
+                    Hall Compound, Elliptical Road, Diliman, <br>
+                    Barangay Central, Quezon City, 1100 <br>
+                    Phone: (02) 988 4242<br>
+                    Email: info@qcdpos.gov.ph
+                </address>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+                To:
+                <address>
+                    <strong>{{$driver->strDriverFirstname}} {{$driver->strDriverLastname}}</strong><br>
+                    {{$driver->strDriverLicense}}<br>
+                </address>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-4 invoice-col">
+                <b>Control # {{$ticketNumber}}</b><br>
+                <b>Confirmation Number: {{$strConfirmationNumber}}</b>
+            </div>
+
+            
+        <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+            <!-- /.col -->
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                <p class="lead">Amount Due</p>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th style="width:50%">Subtotal:</th>
+                            <td>{{number_format($totalAmount,2)}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <!-- this row will not appear when printing -->
+        <div class="row no-print">
+            <div class="col-xs-12">
+                <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;" id="btnPrintInvoice">
+                <i class="fa fa-print"></i> PDF
+                </button>
             </div>
         </div>
-    </body>
-</html>
+    </section>
+    <!-- /.content -->
+    <div class="clearfix"></div>
+
+@stop
+
