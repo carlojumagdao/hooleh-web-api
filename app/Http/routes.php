@@ -11,6 +11,8 @@
 |
 */
 
+// Portal
+
 Route::get('/portal', function () {
     return view('portal.auth.login');
 });
@@ -34,6 +36,9 @@ Route::post('/payment/portal', array(
 	'uses' => 'web\paymentController@portal',
 	'as' => 'payment.portal'
 ));
+
+// Portal
+
 
 
 Route::get('/', function () {
