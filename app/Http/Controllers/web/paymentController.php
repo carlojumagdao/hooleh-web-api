@@ -25,7 +25,7 @@ class paymentController extends Controller
             ->first();
 
 	        if (empty($result)){
-	        	$confirmationNumber = 'CN-00001-AA';
+	        	$confirmationNumber = 'CN-00001-AB';
 	        } else {
 	        	$confirmationNumber = $result->strConfirmationNumber;
 	        }
@@ -64,7 +64,7 @@ class paymentController extends Controller
             ->first();
 
         if (empty($result)){
-        	$confirmationNumber = 'CN-00001-AA';
+        	$confirmationNumber = 'CN-00001-AB';
         } else {
         	$confirmationNumber = $result->strConfirmationNumber;
         }
