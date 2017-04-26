@@ -6,7 +6,7 @@
 <div class="col-xs-12 col-md-offset-4 col-md-4">
     <center>
     <div>
-        <a href=""><img src="assets/image/icons/Hooleh.png" alt="Hooleh"></a>
+        <a href=""><img src="{{ URL::asset('assets/image/icons/Hooleh.png') }}" alt="Hooleh"></a>
         <h3 style="color:white"><b>Administrator</b> Login</h3>
     </div>
     <!-- /.login-logo -->

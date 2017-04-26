@@ -35,7 +35,7 @@
 
     </head>
 
-    <body class="hold-transition"  background="assets/image/background/trafficlights.jpg">
+    <body class="hold-transition"  background="{{ URL::asset('assets/image/background/trafficlights.jpg') }}">
 
         @yield('content')
 

@@ -15,7 +15,6 @@
         <link rel="stylesheet" href="{{ URL::asset('assets/bootstrap/css/font-awesome.css') }}">
         <!-- Ionicons -->
         <link rel="stylesheet" href="{{ URL::asset('assets/bootstrap/css/ionicons.css') }}">
-
         <link rel="stylesheet" href="{{ URL::asset('assets/plugins/datepicker/datepicker3.css') }}">
         <!-- DataTables -->
         <link rel="stylesheet" href="{{ URL::asset('assets/plugins/datatables/dataTables.bootstrap.css') }}">

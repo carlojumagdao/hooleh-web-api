@@ -1,20 +1,13 @@
-$('.submitPortalPayment').click(function() {
-    bootbox.prompt({
-        size: "small",
-        title: "Enter your password in your UnionBank account",
-        inputType: 'password',
-        callback: function (result) {
-            if(result == "Hooleh12345"){
-                $('#portalPayment').submit();
-            } else {
-                return false
-            }
-        }
-    });
+$('.btnPortalSubmitPayment').click(function() {
+    var strUsername = $("#inputUsername").val();
+    var strPassword = $("#inputPassword").val();
+    if(strUsername == "teamintern" && strPassword == "secret"){
+        $('#portalPayment').submit();
+    } else {
+        alert("Invalid Credential");
+    }
 });
 
 $('#btnPrintInvoice').click(function(){
     window.print();
 });
-
-

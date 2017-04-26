@@ -126,7 +126,7 @@
         <!-- this row will not appear when printing -->
         <div class="row no-print">
             <div class="col-xs-12">
-                <button type="button" class="btn btn-success pull-right submitPortalPayment"><i class="fa fa-credit-card"></i> Submit Payment
+                <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modalSubmitPayment"><i class="fa fa-credit-card"></i> Pay with UnionBank
                 </button>
                 <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;" id="btnPrintInvoice">
                 <i class="fa fa-print"></i> PDF
@@ -144,6 +144,52 @@
             <input type="hidden" name="strDriverLicense" value="{{$driver->strDriverLicense}}">
         </form>
     </div>
+
+    <div class="modal fade" id="modalSubmitPayment" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">SIGN IN WITH YOUR UNIONBANK ACCOUNT</h4>
+                </div>
+                    <div class="modal-body">
+                        <center><img src="{{ URL::asset('assets/image/credit/unionbank1.jpg') }}" alt="UnionBank"></center>
+                        <div class="box-body">
+                            <p class="help-block"></p>
+                            <div class="form-group  col-sm-12">
+                                <input type="text" class="form-control" id="inputUsername" placeholder="UnionBank Username" size="35">
+                            </div>
+                            <div class="form-group  col-sm-12">
+                                <input type="password" class="form-control" id="inputPassword" placeholder="UnionBank Password" maxlength="19" required>
+                            </div>
+                            <!-- <div class="form-group">
+                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                    <input type="text" class="form-control" id="inputMM" placeholder="MM" maxlength="2"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                    <input type="text" class="form-control" id="inputYY" placeholder="YY" maxlength="2"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-4 col-sm-4 col-xs-4">
+                                    <input type="password" class="form-control" id="inputCVV" placeholder="CVV" maxlength="3"/>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                        <span class="form-group">
+                            <button type="submit" class="btn btn-primary btnPortalSubmitPayment">Submit Payment</button>
+                        </span>
+                    </div>
+            </div>
+        </div>
+    </div>
+        <!-- MODAL ADD ENFORCER-->
 @stop
 
 @section('script')
