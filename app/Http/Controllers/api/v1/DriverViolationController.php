@@ -45,8 +45,7 @@ class DriverViolationController extends Controller
         try {
             DB::beginTransaction();
             $user = JWTAuth::parseToken()->toUser();
-            // $now = date("Y-m-d H:i:s");
-            $now = Carbon::now()->addHours(8);
+            $now = date("Y-m-d H:i:s");
             $driverID = DB::table('tblDriver')
                 ->select('intDriverID')
                 ->where('strDriverLicense', $request->strDriverLicenseNumber)
@@ -56,11 +55,21 @@ class DriverViolationController extends Controller
                 ->select('strControlNumber')
                 ->orderBy('strControlNumber', 'desc')
                 ->first();
+<<<<<<< HEAD
             if (is_null($result)){
                 $violationControlNumber = 'CO-000001-01';
             } else {
                 $violationControlNumber = $result->strControlNumber;
             }
+=======
+
+            if (is_null($result)){
+                $violationControlNumber = 'CN-00001-01';
+            }else{
+                $violationControlNumber = $result->strControlNumber;
+            }
+
+>>>>>>> ubankAuth
             $counter = new SmartCounter();
 
             $id = DB::table('tblViolationTransactionHeader')->insertGetId([
@@ -71,7 +80,8 @@ class DriverViolationController extends Controller
                 'strPlateNumber' => $request->strPlateNumber,
                 'intVehicleTypeID' => $request->intVehicleTypeID,
                 'dblLatitude' => $request->dblLatitude,
-                'dblLongitude' => $request->dblLongitude
+                'dblLongitude' => $request->dblLongitude,
+                'TimestampCreated' => $now
             ]);
 
             $violations = json_decode($request->violations);
@@ -145,6 +155,11 @@ class DriverViolationController extends Controller
         $now->hour = 0;
         $now->minute = 0;
         $now->second = 0;   
+
+        $enforcerID = DB::table('tblEnforcer')
+            ->select('intEnforcerID')
+            ->where('intUserID', $user['original']['id'])
+            ->first();
 
         $enforcerID = DB::table('tblEnforcer')
             ->select('intEnforcerID')
