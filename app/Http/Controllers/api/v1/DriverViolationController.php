@@ -55,13 +55,6 @@ class DriverViolationController extends Controller
                 ->select('strControlNumber')
                 ->orderBy('strControlNumber', 'desc')
                 ->first();
-<<<<<<< HEAD
-            if (is_null($result)){
-                $violationControlNumber = 'CO-000001-01';
-            } else {
-                $violationControlNumber = $result->strControlNumber;
-            }
-=======
 
             if (is_null($result)){
                 $violationControlNumber = 'CN-00001-01';
@@ -69,7 +62,6 @@ class DriverViolationController extends Controller
                 $violationControlNumber = $result->strControlNumber;
             }
 
->>>>>>> ubankAuth
             $counter = new SmartCounter();
 
             $id = DB::table('tblViolationTransactionHeader')->insertGetId([
