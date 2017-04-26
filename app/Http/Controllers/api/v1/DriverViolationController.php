@@ -45,28 +45,35 @@ class DriverViolationController extends Controller
         try {
             DB::beginTransaction();
             $user = JWTAuth::parseToken()->toUser();
-            // $now = date("Y-m-d H:i:s");
-            $now = Carbon::now()->addHours(8);
+            $now = date("Y-m-d H:i:s");
             $driverID = DB::table('tblDriver')
                 ->select('intDriverID')
                 ->where('strDriverLicense', $request->strDriverLicenseNumber)
                 ->first();
 
-            $violationControlNumber = DB::table('tblViolationTransactionHeader')
+            $result = DB::table('tblViolationTransactionHeader')
                 ->select('strControlNumber')
                 ->orderBy('strControlNumber', 'desc')
                 ->first();
+
+            if (is_null($result)){
+                $violationControlNumber = 'CN-00001-01';
+            }else{
+                $violationControlNumber = $result->strControlNumber;
+            }
+
             $counter = new SmartCounter();
 
             $id = DB::table('tblViolationTransactionHeader')->insertGetId([
-                'strControlNumber' => $counter->smartcounter($violationControlNumber->strControlNumber),
+                'strControlNumber' => $counter->smartcounter($violationControlNumber),
                 'intEnforcerID' => $user->Enforcer->intEnforcerID,
                 'intDriverID' => $driverID->intDriverID,
                 'strRegistrationSticker' => $request->strRegistrationSticker,
                 'strPlateNumber' => $request->strPlateNumber,
                 'intVehicleTypeID' => $request->intVehicleTypeID,
                 'dblLatitude' => $request->dblLatitude,
-                'dblLongitude' => $request->dblLongitude
+                'dblLongitude' => $request->dblLongitude,
+                'TimestampCreated' => $now
             ]);
 
             $violations = json_decode($request->violations);
@@ -141,10 +148,16 @@ class DriverViolationController extends Controller
         $now->minute = 0;
         $now->second = 0;
 
+        $enforcerID = DB::table('tblEnforcer')
+            ->select('intEnforcerID')
+            ->where('intUserID', $user['original']['id'])
+            ->first();
+
         $listViolationToday = DB::table('tblViolationTransactionHeader')
             ->join('tblDriver', 'tblDriver.intDriverID', '=', 'tblViolationTransactionHeader.intDriverID')
             ->select('tblDriver.*', 'tblViolationTransactionHeader.*')
             ->where('tblViolationTransactionHeader.TimestampCreated', '>=', $now)
+            ->where('tblViolationTransactionHeader.intEnforcerID', $enforcerID->intEnforcerID)
             ->get();
 
         return response()->json($listViolationToday);
