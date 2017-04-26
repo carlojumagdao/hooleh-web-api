@@ -116,6 +116,7 @@ class paymentController extends Controller
 			    	$payment = new Payment;
 			    	$payment->strTransactionControlNumber 	= $request->strTransactionControlNumber;
 			    	$payment->strConfirmationNumber			= $manage['confirmation_no'];
+			    	$payment->intAdminID 					= 1;
 			    	$payment->blPaymentMethod 				= 1;
 			        $payment->dblPaymentAmount 				= $request->dblPaymentAmount;
 			        $payment->datPaymentTransaction 		= Carbon\Carbon::now();
