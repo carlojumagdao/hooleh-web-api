@@ -25,7 +25,7 @@ class paymentController extends Controller
             ->first();
 
 	        if (empty($result)){
-	        	$confirmationNumber = 'CN-00001-AB';
+	        	$confirmationNumber = 'CN-00001-AC';
 	        } else {
 	        	$confirmationNumber = $result->strConfirmationNumber;
 	        }
@@ -64,7 +64,7 @@ class paymentController extends Controller
             ->first();
 
         if (empty($result)){
-        	$confirmationNumber = 'CN-00001-AB';
+        	$confirmationNumber = 'CN-00001-AC';
         } else {
         	$confirmationNumber = $result->strConfirmationNumber;
         }
@@ -100,7 +100,7 @@ class paymentController extends Controller
 		curl_close($curl);
 
 		if ($err) {
-		  echo "cURL Error #:" . $err;
+		  	return view('errors.503');
 		} else {
 			$manage = (array) json_decode($response);
 			if($manage['status'] == 'F'){
