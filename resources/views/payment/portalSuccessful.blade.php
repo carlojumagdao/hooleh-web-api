@@ -25,7 +25,7 @@
                 <h2 class="page-header">
                     <i class="fa fa-globe"></i> Department of Public Order and Safety - Quezon City
                     <small class="pull-right">
-                        Date: {{date('M j, Y',strtotime($datToday))}}
+                        
                     </small>
                 </h2>
             </div>
@@ -67,7 +67,7 @@
                 <div class="table-responsive">
                     <table class="table">
                         <tr>
-                            <th style="width:50%">Subtotal:</th>
+                            <th style="width:50%">Total:</th>
                             <td>{{number_format($totalAmount,2)}}</td>
                         </tr>
                     </table>
