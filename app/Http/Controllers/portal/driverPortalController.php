@@ -35,7 +35,7 @@ class driverPortalController extends Controller
         $driver = Driver::find($id);
         $LicenseType = $driver->LicenseType;
         $driverViolations = DB::table('tblViolationTransactionHeader')
-        		->select(DB::raw('SUM(tblViolationFee.dblPrice) as totalFine'),'tblViolationTransactionHeader.*','tblViolationFee.*','tblEnforcer.*')
+        		->select(DB::raw('MAX(tblViolationTransactionHeader.TimestampCreated) as datCaught'),DB::raw('SUM(tblViolationFee.dblPrice) as totalFine'),'tblViolationTransactionHeader.*','tblViolationFee.*','tblEnforcer.*')
         		->join('tblViolationTransactionDetail', 'tblViolationTransactionHeader.intViolationTransactionHeaderID', '=', 'tblViolationTransactionDetail.intViolationTransactionHeaderID')
         		->join('tblViolation', 'tblViolationTransactionDetail.intViolationID', '=', 'tblViolation.intViolationID')
                 ->join('tblEnforcer', 'tblViolationTransactionHeader.intEnforcerID', '=', 'tblEnforcer.intEnforcerID')

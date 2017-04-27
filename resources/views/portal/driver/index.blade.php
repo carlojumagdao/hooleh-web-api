@@ -68,7 +68,7 @@
                     @endif
                     <h3 class="widget-user-username">{{$driverViolation->strControlNumber}}</h3>
                     <h5 class="widget-user-desc">{{date('M j, Y',strtotime($driverViolation-> 
-                                    TimestampCreated))}}</h5>
+                                    datCaught))}}</h5>
                 </div>
                 <div class="box-footer no-padding">
                     <ul class="nav nav-stacked">
