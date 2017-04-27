@@ -175,11 +175,22 @@ class DriverViolationController extends Controller
         $now->minute = 0;
         $now->second = 0;
 
+        $enforcerID = DB::table('tblEnforcer')
+            ->select('intEnforcerID')
+            ->where('intUserID', $user['original']['id'])
+            ->first();
+
+        $enforcerID = DB::table('tblEnforcer')
+            ->select('intEnforcerID')
+            ->where('intUserID', $user['original']['id'])
+            ->first();
+
         $listViolationToday = DB::table('tblViolationTransactionHeader')
             ->join('tblDriver', 'tblDriver.intDriverID', '=', 'tblViolationTransactionHeader.intDriverID')
             ->select('tblDriver.*', 'tblViolationTransactionHeader.*')
             ->where('tblViolationTransactionHeader.TimestampCreated', '>=', $now)
             ->where('tblDriver.strDriverLicense', 'like','%'.$license.'%')
+            ->where('tblViolationTransactionHeader.intEnforcerID', $enforcerID->intEnforcerID)
             ->get();
 
         return response()->json($listViolationToday);
