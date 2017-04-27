@@ -115,20 +115,21 @@ class paymentController extends Controller
 			    	$driverID = $transHeader->intDriverID;
 
 					$driver = Driver::find($driverID);
+					$confirmationNo = $this->generateRandomString();
 
 			    	$payment = new Payment;
 			    	$payment->strTransactionControlNumber 	= $request->strTransactionControlNumber;
-			    	$payment->strConfirmationNumber			= $manage['confirmation_no'];
+			    	$payment->strConfirmationNumber			= $confirmationNo;
 			    	$payment->intAdminID 					= 1;
 			    	$payment->blPaymentMethod 				= 1;
 			        $payment->dblPaymentAmount 				= $request->dblPaymentAmount;
 			        $payment->datPaymentTransaction 		= Carbon\Carbon::now();
 			        $payment->save();
 			        DB::commit();
-			        return view('payment.portalSuccessful', ['strConfirmationNumber' => $manage['confirmation_no'], 'driverID' => $driverID, 'driver' => $driver, 'totalAmount' => $request->dblPaymentAmount]);
+			        return view('payment.portalSuccessful', ['strConfirmationNumber' => $confirmationNo, 'driverID' => $driverID, 'driver' => $driver, 'totalAmount' => $request->dblPaymentAmount]);
 				} catch(Exception $f){
 					DB::rollBack();
-					echo $f->getMessage();
+					return view('errors.503');
 				}
 			}
 		}
