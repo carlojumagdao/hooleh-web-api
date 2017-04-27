@@ -80,7 +80,7 @@
         <!-- this row will not appear when printing -->
         <div class="row no-print">
             <div class="col-xs-12">
-                <a href='{{ URL::to("/drivers/$driverID") }}' type="button" class="btn btn-primary">
+                <a href='{{ URL::to("/portal/driver/$driverID") }}' type="button" class="btn btn-primary">
                     Back to Driver's Page
                 </a>
                 <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;" id="btnPrintInvoice">
