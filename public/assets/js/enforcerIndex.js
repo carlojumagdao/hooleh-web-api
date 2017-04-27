@@ -93,7 +93,6 @@ $('#form').validator().on('submit', function (e) {
                     $btnCreateEnforcer.button('reset');
                     $(".selFilter").val(0);  
                 }
-                
             },error:function(data){ 
                 alert("Error!");
             }
