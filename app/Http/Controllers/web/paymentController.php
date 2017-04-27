@@ -31,7 +31,7 @@ class paymentController extends Controller
 	        	$confirmationNumber = $result->strConfirmationNumber;
 	        }
 	        $counter = new SmartCounter();
-            $newConfirmationNumber = $counter->smartcounter($confirmationNumber->strConfirmationNumber);
+            $newConfirmationNumber = $counter->smartcounter($confirmationNumber);
 
 
 	    	$transHeader = TransactionHeader::where('strControlNumber', $request->strTransactionControlNumber)->first();
